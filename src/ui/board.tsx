@@ -9,7 +9,7 @@ export default function Board({
   onClick,
 }: {
   state: Array<Mark | undefined>;
-  onClick: (index: number) => void;
+  onClick?: (index: number) => void;
 }) {
   return (
     <div className={styles.board}>
@@ -17,7 +17,7 @@ export default function Board({
         <div
           key={index}
           className={clsx(styles.cell, item && styles[item])}
-          onClick={item ? undefined : () => onClick(index)}
+          onClick={item ? undefined : () => onClick?.(index)}
         >
           {item}
         </div>
