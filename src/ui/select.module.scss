@@ -1,0 +1,22 @@
+.ctl {
+    appearance: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 8px 26px 8px 16px;
+    cursor: pointer;
+    background: var(--foreground);
+    color: var(--background);
+    border-width: 1px;
+    border-radius: 4px;
+
+    // https://stackoverflow.com/questions/1895476/how-do-i-style-a-select-dropdown-with-only-css
+    background-image:
+        linear-gradient(-135deg, transparent 50%, var(--foreground) 50%),
+        linear-gradient(-225deg, transparent 50%, var(--foreground) 50%),
+        linear-gradient(var(--foreground) 42%, var(--background) 42%);
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size: 20px 22px, 28px 28px, 20px 100%;
+    background-position: right bottom, right bottom, right bottom;
+}

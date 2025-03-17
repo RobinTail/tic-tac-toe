@@ -5,6 +5,7 @@ import Button from "@/ui/button";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { findMove, getWinner, Mark } from "@/lib/logic";
 import styles from "./game.module.scss";
+import Select from "./select";
 
 type Role = "human" | "computer";
 
@@ -12,7 +13,10 @@ const clean = () => Array<Mark | undefined>(9).fill(undefined);
 
 export default function Game() {
   const [board, setBoard] = useState(clean);
-  const [players] = useState<Record<Mark, Role>>({ X: "human", O: "computer" });
+  const [players, setPlayers] = useState<Record<Mark, Role>>({
+    X: "human",
+    O: "computer",
+  });
   const [player, setPlayer] = useState<Mark>("X");
 
   const reset = () => setBoard(clean);
@@ -56,6 +60,18 @@ export default function Game() {
     <>
       <div className={styles.controls}>
         <Button onClick={reset}>Reset</Button>
+        <Select
+          onChange={(event) => {
+            setPlayers({ X: players.X, O: event.target.value as Role });
+            reset();
+          }}
+        >
+          {(["computer", "human"] satisfies Role[]).map((role) => (
+            <option key={role} value={role}>
+              Playing with {role}
+            </option>
+          ))}
+        </Select>
       </div>
       <Board
         state={board}

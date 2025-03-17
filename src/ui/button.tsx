@@ -5,7 +5,7 @@ export default function Button({
   ...rest
 }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <button {...rest} className={styles.btn}>
+    <button {...rest} className={styles.ctl}>
       {children}
     </button>
   );
