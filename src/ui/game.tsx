@@ -22,10 +22,9 @@ export default function Game() {
 
   const makeMove = useCallback(
     (index: number) => {
-      setBoard((current) => {
-        current[index] = player;
-        return current;
-      });
+      setBoard((current) =>
+        current.map((value, position) => (index === position ? player : value)),
+      );
       switchPlayer();
     },
     [player, switchPlayer],
