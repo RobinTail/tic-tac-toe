@@ -1,7 +1,7 @@
 "use client";
 
 import Board, { Mark, size } from "@/ui/board";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { findMove } from "@/lib/competitor";
 
 type Role = "human" | "computer";
@@ -14,6 +14,16 @@ export default function Game() {
   const [player, setPlayer] = useState<Mark>("X");
 
   const reset = () => setBoard(clean);
+
+  const moves = useMemo(
+    () =>
+      board
+        .map((value, index) => (value ? undefined : index))
+        .filter((index) => index !== undefined),
+    [board],
+  );
+
+  const isGameOver = useMemo(() => moves.length === 0, [moves.length]);
 
   const switchPlayer = useCallback(
     () => setPlayer((current) => (current === "X" ? "O" : "X")),
@@ -31,14 +41,16 @@ export default function Game() {
   );
 
   useEffect(() => {
-    if (players[player] === "human") return;
-    makeMove(findMove(player, board));
-  }, [board, makeMove, player, players]);
+    if (players[player] === "human" || isGameOver) return;
+    makeMove(findMove(player, board, moves));
+  }, [board, isGameOver, makeMove, moves, player, players]);
 
   return (
     <Board
       state={board}
-      onClick={players[player] === "human" ? makeMove : undefined}
+      onClick={
+        players[player] === "human" && !isGameOver ? makeMove : undefined
+      }
     />
   );
 }

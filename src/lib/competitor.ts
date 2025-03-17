@@ -38,13 +38,11 @@ const rateDefend = (
         places.filter((place) => board[place] && board[place] !== value).length,
     );
 
-const getMoves = (board: Array<Mark | undefined>) =>
-  board
-    .map((value, index) => (value ? undefined : index))
-    .filter((index) => index !== undefined);
-
-export const findMove = (value: Mark, board: Array<Mark | undefined>) => {
-  const moves = getMoves(board);
+export const findMove = (
+  value: Mark,
+  board: Array<Mark | undefined>,
+  moves: number[],
+) => {
   const options = moves.map((move) => {
     return [
       move,
