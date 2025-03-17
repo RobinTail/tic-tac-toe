@@ -1,15 +1,13 @@
-import styles from "./board.module.scss";
+import { Field } from "@/lib/logic";
 import clsx from "clsx";
-
-export type Mark = "X" | "O";
-export const size = 3 * 3;
+import styles from "./board.module.scss";
 
 export default function Board({
   state,
   onClick,
   winner,
 }: {
-  state: Array<Mark | undefined>;
+  state: Field;
   onClick?: (index: number) => void;
   winner?: number[];
 }) {

@@ -1,13 +1,13 @@
 "use client";
 
-import Board, { Mark, size } from "@/ui/board";
+import Board from "@/ui/board";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { findMove, getWinner } from "@/lib/logic";
+import { findMove, getWinner, Mark } from "@/lib/logic";
 import styles from "./game.module.scss";
 
 type Role = "human" | "computer";
 
-const clean = () => Array<Mark | undefined>(size).fill(undefined);
+const clean = () => Array<Mark | undefined>(9).fill(undefined);
 
 export default function Game() {
   const [board, setBoard] = useState(clean);

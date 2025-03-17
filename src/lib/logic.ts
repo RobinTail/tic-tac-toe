@@ -1,5 +1,3 @@
-import { Mark } from "@/ui/board";
-
 const wins = [
   [0, 1, 2],
   [3, 4, 5],
@@ -11,18 +9,17 @@ const wins = [
   [2, 4, 6],
 ];
 
-export const getWinner = (board: Array<Mark | undefined>) =>
+export type Mark = "X" | "O";
+export type Field = Array<Mark | undefined>;
+
+export const getWinner = (board: Field) =>
   wins.find(
     (places) =>
       places.every((place) => board[place] === "X") ||
       places.every((place) => board[place] === "O"),
   );
 
-const rateAttack = (
-  move: number,
-  value: Mark,
-  board: Array<Mark | undefined>,
-) =>
+const rateAttack = (move: number, value: Mark, board: Field) =>
   wins
     .filter((places) => places.includes(move))
     .map((places) =>
@@ -33,11 +30,7 @@ const rateAttack = (
       ),
     );
 
-const rateDefend = (
-  move: number,
-  value: Mark,
-  board: Array<Mark | undefined>,
-) =>
+const rateDefend = (move: number, value: Mark, board: Field) =>
   wins
     .filter((places) => places.includes(move))
     .map(
@@ -45,11 +38,7 @@ const rateDefend = (
         places.filter((place) => board[place] && board[place] !== value).length,
     );
 
-export const findMove = (
-  value: Mark,
-  board: Array<Mark | undefined>,
-  moves: number[],
-) => {
+export const findMove = (value: Mark, board: Field, moves: number[]) => {
   const options = moves.map((move) => {
     return [
       move,
