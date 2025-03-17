@@ -1,0 +1,25 @@
+.board {
+    display: grid;
+    grid: repeat(3, 100px) / repeat(3, 100px);
+    gap: 2px;
+    padding: 2px;
+    background: var(--foreground);
+}
+
+.cell {
+    background: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    cursor: pointer;
+
+    &.X {
+        color: #f14848;
+        cursor: unset;
+    }
+    &.O {
+        color: #e4e43b;
+        cursor: unset;
+    }
+}
