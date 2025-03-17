@@ -1,6 +1,7 @@
 "use client";
 
 import Board from "@/ui/board";
+import Button from "@/ui/button";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { findMove, getWinner, Mark } from "@/lib/logic";
 import styles from "./game.module.scss";
@@ -54,7 +55,7 @@ export default function Game() {
   return (
     <>
       <div className={styles.controls}>
-        <button onClick={reset}>Reset</button>
+        <Button onClick={reset}>Reset</Button>
       </div>
       <Board
         state={board}
