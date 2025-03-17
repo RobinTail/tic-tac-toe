@@ -4,6 +4,54 @@
     gap: 2px;
     padding: 2px;
     background: var(--foreground);
+
+    &.winner {
+        position: relative;
+        overflow: hidden;
+
+        &:before {
+            content: "";
+            display: block;
+            width: 200%;
+            height: 8px;
+            position: absolute;
+            left: -50%;
+        }
+    }
+    &.winner.X:before {
+        background: #f14848;
+    }
+    &.winner.O:before {
+        background: #e4e43b;
+    }
+    &.winner.variant-0-1-2:before {
+        top: 50px
+    }
+    &.winner.variant-3-4-5:before {
+        top: 150px;
+    }
+    &.winner.variant-6-7-8:before {
+        top: 250px;
+    }
+    &.winner.variant-0-3-6:before {
+        rotate: 90deg;
+        left: calc(-50% - 100px);
+    }
+    &.winner.variant-1-4-7:before {
+        rotate: 90deg;
+    }
+    &.winner.variant-2-5-8:before {
+        rotate: 90deg;
+        left: calc(-50% + 100px);
+    }
+    &.winner.variant-0-4-8:before {
+        rotate: 45deg;
+        top: 50%;
+    }
+    &.winner.variant-2-4-6:before {
+        rotate: -45deg;
+        top: 50%;
+    }
 }
 
 .cell {

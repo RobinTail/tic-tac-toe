@@ -2,7 +2,7 @@
 
 import Board, { Mark, size } from "@/ui/board";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { findMove } from "@/lib/competitor";
+import { findMove, getWinner } from "@/lib/logic";
 
 type Role = "human" | "computer";
 
@@ -23,7 +23,12 @@ export default function Game() {
     [board],
   );
 
-  const isGameOver = useMemo(() => moves.length === 0, [moves.length]);
+  const winner = useMemo(() => getWinner(board), [board]);
+
+  const isGameOver = useMemo(
+    () => winner || moves.length === 0,
+    [moves.length, winner],
+  );
 
   const switchPlayer = useCallback(
     () => setPlayer((current) => (current === "X" ? "O" : "X")),
@@ -48,6 +53,7 @@ export default function Game() {
   return (
     <Board
       state={board}
+      winner={winner}
       onClick={
         players[player] === "human" && !isGameOver ? makeMove : undefined
       }

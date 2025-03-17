@@ -11,6 +11,13 @@ const wins = [
   [2, 4, 6],
 ];
 
+export const getWinner = (board: Array<Mark | undefined>) =>
+  wins.find(
+    (places) =>
+      places.every((place) => board[place] === "X") ||
+      places.every((place) => board[place] === "O"),
+  );
+
 const rateAttack = (
   move: number,
   value: Mark,
