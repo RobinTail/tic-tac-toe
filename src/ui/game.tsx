@@ -3,6 +3,7 @@
 import Board, { Mark, size } from "@/ui/board";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { findMove, getWinner } from "@/lib/logic";
+import styles from "./game.module.scss";
 
 type Role = "human" | "computer";
 
@@ -51,12 +52,17 @@ export default function Game() {
   }, [board, isGameOver, makeMove, moves, player, players]);
 
   return (
-    <Board
-      state={board}
-      winner={winner}
-      onClick={
-        players[player] === "human" && !isGameOver ? makeMove : undefined
-      }
-    />
+    <>
+      <div className={styles.controls}>
+        <button onClick={reset}>Reset</button>
+      </div>
+      <Board
+        state={board}
+        winner={winner}
+        onClick={
+          players[player] === "human" && !isGameOver ? makeMove : undefined
+        }
+      />
+    </>
   );
 }
