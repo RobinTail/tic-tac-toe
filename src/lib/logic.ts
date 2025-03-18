@@ -13,11 +13,10 @@ export type Mark = "X" | "O";
 export type Field = Array<Mark | undefined>;
 
 export const getWinner = (board: Field) =>
-  wins.find(
-    (places) =>
-      places.every((place) => board[place] === "X") ||
-      places.every((place) => board[place] === "O"),
-  );
+  wins.find((places) => {
+    const values = places.map((place) => board[place]).join("");
+    return values === "XXX" || values === "OOO";
+  });
 
 const rateAttack = (move: number, value: Mark, board: Field) =>
   wins
