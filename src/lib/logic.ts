@@ -18,36 +18,40 @@ export const getWinner = (board: Field) =>
     return values === "XXX" || values === "OOO";
   });
 
-const rateAttack = (move: number, value: Mark, board: Field) =>
-  wins
-    .filter((places) => places.includes(move))
-    .map((places) =>
-      places.reduce(
-        (agg, place) =>
-          board[place] ? (board[place] === value ? agg + 1 : agg - 1) : agg,
-        0,
+const rateMove = (move: number, value: Mark, board: Field) => {
+  const variants = wins.filter((places) => places.includes(move));
+  return {
+    attackScore: Math.max(
+      ...variants.map((places) =>
+        places.reduce(
+          (agg, place) =>
+            board[place] ? (board[place] === value ? agg + 1 : agg - 1) : agg,
+          0,
+        ),
       ),
-    );
-
-const rateDefend = (move: number, value: Mark, board: Field) =>
-  wins
-    .filter((places) => places.includes(move))
-    .map(
-      (places) =>
-        places.filter((place) => board[place] && board[place] !== value).length,
-    );
+    ),
+    defendScore: Math.max(
+      ...variants.map(
+        (places) =>
+          places.filter((place) => board[place] && board[place] !== value)
+            .length,
+      ),
+    ),
+  };
+};
 
 export const findMove = (value: Mark, board: Field, moves: number[]) => {
-  const options = moves.map((move) => {
-    return [
-      move,
-      Math.max(...rateAttack(move, value, board)),
-      Math.max(...rateDefend(move, value, board)),
-    ];
-  });
-  const attacks = options.toSorted((a, b) => b[1] - a[1]);
-  const defends = options.toSorted((a, b) => b[2] - a[2]);
-  const [attack, attackScore] = [attacks[0][0], attacks[0][1]];
-  const [defend, defendScore] = [defends[0][0], defends[0][2]];
+  const options = moves.map((move) => ({
+    move,
+    ...rateMove(move, value, board),
+  }));
+  const bestAttack = options.toSorted(
+    (a, b) => b.attackScore - a.attackScore,
+  )[0];
+  const bestDefense = options.toSorted(
+    (a, b) => b.defendScore - a.defendScore,
+  )[0];
+  const [attack, attackScore] = [bestAttack.move, bestAttack.attackScore];
+  const [defend, defendScore] = [bestDefense.move, bestDefense.defendScore];
   return attackScore > 1 ? attack : defendScore > 1 ? defend : attack;
 };
