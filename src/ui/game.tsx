@@ -2,10 +2,10 @@
 
 import Board from "@/ui/board";
 import Button from "@/ui/button";
+import Select from "@/ui/select";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { findMove, getWinner, Mark } from "@/lib/logic";
 import styles from "./game.module.scss";
-import Select from "./select";
 
 type Role = "human" | "computer";
 

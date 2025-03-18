@@ -1,4 +1,4 @@
-import { Field } from "@/lib/logic";
+import type { Field } from "@/lib/logic";
 import clsx from "clsx";
 import styles from "./board.module.scss";
 
